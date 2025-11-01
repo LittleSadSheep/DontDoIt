@@ -42,7 +42,7 @@ object GameAreaGenerator : Listener {
     @NMSWarning
     fun generate(generateCenter: Vec3i, world: World): Boolean {
         val level = (world as? CraftWorld)?.handle ?: throw IllegalArgumentException("Cannot convert org.bukkit.World to net.minecraft.server.level.ServerLevel")
-        if (world.environment != World.Environment.NORMAL) throw IllegalStateException("Generating game area not in overworld is not supported")
+        if (world.environment != World.Environment.NORMAL || world.environment != World.Environment.NETHER) throw IllegalStateException("Generating game area not in overworld is not supported")
 
         val centerLoc = generateCenter.center().toLocation(world)
         val centerSafeLoc = centerLoc.clone().apply { y = world.getHighestBlockYAt(centerLoc, HeightMap.MOTION_BLOCKING) + 1.0 }
